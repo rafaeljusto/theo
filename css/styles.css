@@ -1,0 +1,129 @@
+@import url(https://fonts.googleapis.com/css?family=Righteous);
+
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+html, body {
+  height: 100%;
+}
+
+.game-frame {
+  margin: auto;
+}
+
+.game-line {
+  display: block;
+  height: 50px;
+  margin: 0px;
+  text-align: center;
+}
+
+.game-block {
+  background-image: url("/img/grass.png");
+  background-color: #7cfc00;
+  display: inline-block;
+  height: 50px;
+  left: 0;
+  margin: 0px;
+  position: relative;
+  top: 0;
+  width: 50px;
+}
+
+.game-block .game-block-tree {
+  content: url("/img/tree.png");
+  left: 0;
+  position: relative;
+  top: 0;
+}
+
+.game-block .game-block-mountain {
+  content: url("/img/mountain.png");
+  left: 0;
+  position: relative;
+  top: 0;
+}
+
+.game-block .game-block-building {
+  content: url("/img/building.png");
+  left: 0;
+  position: relative;
+  top: 0;
+}
+
+.game-block .game-block-antenna {
+  content: url("/img/antenna.png");
+  left: 0;
+  position: relative;
+  top: 0;
+}
+
+.game-block .game-plane {
+  content: url("/img/plane.png");
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.game-block .game-plane.explosion {
+  content: url("/img/explosion.png");
+}
+
+.game-controls {
+  position: absolute;
+  height: 150px;
+  width: 150px;
+  top: 70%;
+  left: 78%;
+}
+
+.game-controls button {
+  border: 1px solid;
+  box-shadow: 3px 3px 0 0 rgba(0,0,0,0.8);
+  box-sizing: content-box;
+  font-size: 2em;
+  padding: 9px 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+
+.game-controls button:active {
+  box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.8) ;
+  margin: 3px 0 0 3px;
+}
+
+.game-controls .game-controls-up {
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+
+.game-controls .game-controls-down {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+}
+
+.game-controls .game-controls-left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.game-controls .game-controls-right {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+}
+
+.title {
+  font-family: 'Righteous', serif;
+  font-size: 3em; 
+  text-align: center;
+  text-shadow: .03em .03em 0 rgb(137, 138, 144);
+}
