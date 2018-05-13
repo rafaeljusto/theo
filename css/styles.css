@@ -73,57 +73,91 @@ html, body {
   content: url("/img/explosion.png");
 }
 
-.game-controls {
-  position: absolute;
-  height: 150px;
-  width: 150px;
-  top: 70%;
-  left: 78%;
+.game-restart {
+  position: fixed;
+  height: 50px;
+  width: 250px;
+  top: 60%;
+  left: 5%;
+  display: none;
 }
 
-.game-controls button {
+@media (min-width:1281px) {
+  .game-restart {
+    top: 50%;
+    left: 50%;
+  }
+}
+
+.game-controls {
+  position: fixed;
+  height: 150px;
+  width: 150px;
+  top: 30%;
+  left: 68%;
+}
+
+@media (min-width:1281px) {
+  .game-controls {
+    display: none;
+  }
+}
+
+.game-controls button, .game-restart {
+  background-color: #fff;
   border: 1px solid;
+  border-radius: 25px;
   box-shadow: 3px 3px 0 0 rgba(0,0,0,0.8);
   box-sizing: content-box;
   font-size: 2em;
-  padding: 9px 20px;
+  padding: 10px;
+  opacity: 0.9;
   overflow: hidden;
   text-overflow: ellipsis;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
 }
 
-.game-controls button:active {
+.game-controls button:active, .game-restart:active {
   box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.8) ;
   margin: 3px 0 0 3px;
 }
 
+.game-controls button:focus, .game-restart:focus {
+  outline: none;
+}
+
 .game-controls .game-controls-up {
   position: absolute;
-  top: 0;
+  top: 20%;
   left: 50%;
 }
 
 .game-controls .game-controls-down {
   position: absolute;
-  top: 100%;
+  top: 80%;
   left: 50%;
 }
 
 .game-controls .game-controls-left {
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 20%;
 }
 
 .game-controls .game-controls-right {
   position: absolute;
   top: 50%;
-  left: 100%;
+  left: 80%;
 }
 
-.title {
+.title, .warning-message-tip {
+  display: block;
   font-family: 'Righteous', serif;
   font-size: 3em; 
   text-align: center;
   text-shadow: .03em .03em 0 rgb(137, 138, 144);
+}
+
+.warning-message-img {
+  width: 100%;
 }

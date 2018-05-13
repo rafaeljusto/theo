@@ -4,13 +4,24 @@
   <head>
     <meta charset="utf-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="Jogo feito para o Theo">
     <meta name="author" content="Rafael Dantas Justo">
 
     <title>THEO  &#9992;</title>
 
-    <link rel="stylesheet" href="/css/styles.css?v=1.0">
+    <link rel="stylesheet" href="/css/styles.css?v=1.4">
+
+    <style type="text/css">
+      #warning-message { display: none; }
+      @media only screen and (orientation:portrait){
+        #wrapper { display:none; }
+        #warning-message { display:block; }
+      }
+      @media only screen and (orientation:landscape){
+        #warning-message { display:none; }
+      }
+    </style>
 
     <!--[if lt IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
@@ -19,17 +30,26 @@
 
   <body>
     <h1 class="title">Theo &#9992;</h1>
-    <div class="game-frame"></div>
 
-    <div class="game-controls">
-      <button class="game-controls-up">⇧</button>
-      <button class="game-controls-left">⇦</button>
-      <button class="game-controls-right">⇨</button>
-      <button class="game-controls-down">⇩</button>
+    <div id="wrapper">
+      <div class="game-frame"></div>
+
+      <div class="game-controls">
+        <button class="game-controls-up">⇧</button>
+        <button class="game-controls-left">⇦</button>
+        <button class="game-controls-right">⇨</button>
+        <button class="game-controls-down">⇩</button>
+      </div>
+
+      <button class="game-restart">Recomeçar</button>
+    </div>
+    <div id="warning-message">
+      <img src="/img/rotate.png" class="warning-message-img">
+      <h2 class="warning-message-tip">Rotacione o Celular</h2>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="/js/jquery-rotate.js"></script>
-    <script src="/js/scripts.js"></script>
+    <script src="/js/scripts.js?v=1.4"></script>
   </body>
 </html>

@@ -42,6 +42,8 @@ var currentPosition = {
   direction: direction.North,
 };
 
+var gameTickerID = 0;
+
 function initializeGameMatrix() {
   gameMatrix = [];
 
@@ -138,6 +140,7 @@ function gameTicker() {
       gameMatrix[currentPosition.Y][currentPosition.X] != blockStatus.Free) {
     // crash! lost game
     $(".game-plane").addClass("explosion");
+    $(".game-restart").show();
     return;
   }
 
@@ -157,7 +160,7 @@ function gameTicker() {
   }
 
   drawGameMatrix();
-  setTimeout(gameTicker, 1000);
+  gameTickerID = setTimeout(gameTicker, 1000);
 }
 
 function changePlaneDirection(newDirection) {
@@ -165,7 +168,7 @@ function changePlaneDirection(newDirection) {
   rotatePlane();
 }
 
-$(function() {
+function initializeGame() {
   // defining the game-frame size
   var gameFrame = $(".game-frame");
   gameFrame.width($(document).width() - 100);
@@ -185,7 +188,9 @@ $(function() {
   }
 
   drawGameMatrix();
+}
 
+function addEvents() {
   // detect actions with keyboard
   $(document).keydown(function(e) {
     switch (event.which) {
@@ -218,5 +223,30 @@ $(function() {
     changePlaneDirection(direction.East);
   });
 
-  setTimeout(gameTicker, 1000);
+  // add restart action
+  $(".game-restart").click(function(e) {
+    initializeGame();
+    $(".game-restart").hide();
+    if (gameTickerID) {
+      clearTimeout(gameTickerID);
+    }
+    gameTickerID = setTimeout(gameTicker, 1000);
+  });
+
+  // restart everything if window size changes
+  $(window).on("resize", function(e) {
+    initializeGame();
+    $(".game-restart").hide();
+    if (gameTickerID) {
+      clearTimeout(gameTickerID);
+    }
+    gameTickerID = setTimeout(gameTicker, 1000);
+  });
+
+  gameTickerID = setTimeout(gameTicker, 1000);
+}
+
+$(function() {
+  initializeGame();
+  addEvents();
 })
