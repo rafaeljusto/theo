@@ -73,6 +73,13 @@ html, body {
   content: url("/img/explosion.png");
 }
 
+.game-block .game-checkpoint {
+  content: url("/img/checkpoint.png");
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
 .game-restart {
   position: fixed;
   height: 50px;
@@ -148,6 +155,20 @@ html, body {
   position: absolute;
   top: 50%;
   left: 80%;
+}
+
+.game-points {
+  color: #fff;
+  font-family: 'Righteous', serif;
+  font-size: 4em;
+  font-weight: bold;
+  height: 100px;
+  left: 48%;
+  position: fixed;
+  text-align: center;
+  top: 15%;
+  z-index: 1;
+  width: 100px;
 }
 
 .title, .warning-message-tip {

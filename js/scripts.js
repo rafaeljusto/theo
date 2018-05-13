@@ -1,6 +1,9 @@
 // size of the game in blocks (square)
 var matrixSize = 1000;
 
+// speed of the plane, in milliseconds
+var gameSpeed = 800;
+
 // block size in pixels (square)
 var blockSize = 50;
 
@@ -39,7 +42,13 @@ var visibleBlocks = {
 var currentPosition = {
   X: 0,
   Y: 0,
-  direction: direction.North,
+  Direction: direction.North,
+};
+
+var checkpoint = {
+  X: 0,
+  Y: 0,
+  Points: 0,
 };
 
 var gameTickerID = 0;
@@ -66,7 +75,7 @@ function initializeGameMatrix() {
 
 function rotatePlane() {
   var gamePlane = $(".game-plane");
-  switch (currentPosition.direction) {
+  switch (currentPosition.Direction) {
     case direction.North:
       break;
     case direction.South:
@@ -79,6 +88,36 @@ function rotatePlane() {
       gamePlane.rotate(270);
       break;
   }
+}
+
+function chooseCheckpoint() {
+  var deltaX = Math.floor(visibleBlocks.X / 2);
+  var deltaY = Math.floor(visibleBlocks.Y / 2);
+
+  var xBegin = currentPosition.X - deltaX;
+  var xEnd = currentPosition.X + deltaX;
+  var yBegin = currentPosition.Y - deltaY;
+  var yEnd = currentPosition.Y + deltaY;
+
+  do {
+    checkpoint.X = Math.floor(Math.random() * (xEnd - xBegin) + xBegin);
+    checkpoint.Y = Math.floor(Math.random() * (yEnd - yBegin) + yBegin);
+  } while (
+    gameMatrix.length <= checkpoint.Y ||
+    gameMatrix[checkpoint.Y].length <= checkpoint.X ||
+    gameMatrix[checkpoint.Y][checkpoint.X] != blockStatus.Free
+  );
+}
+
+function hitCheckpoint(reset) {
+  if (reset) {
+    checkpoint.Points = 0;  
+  } else {
+    checkpoint.Points++;
+  }
+
+  $(".game-points").text(checkpoint.Points);
+  chooseCheckpoint();
 }
 
 function drawGameMatrix() {
@@ -124,6 +163,10 @@ function drawGameMatrix() {
         gameBlock.append("<img class='game-plane'>");
       }
 
+      if (checkpoint.X == drawX && checkpoint.Y == drawY) {
+        gameBlock.append("<img class='game-checkpoint'>");
+      }
+
       gameFrameLine.append(gameBlock);
     }
 
@@ -144,7 +187,7 @@ function gameTicker() {
     return;
   }
 
-  switch (currentPosition.direction) {
+  switch (currentPosition.Direction) {
     case direction.North:
       currentPosition.Y--;
       break;
@@ -159,12 +202,16 @@ function gameTicker() {
       break;
   }
 
+  if (currentPosition.X == checkpoint.X && currentPosition.Y == checkpoint.Y) {
+    hitCheckpoint();
+  }
+
   drawGameMatrix();
-  gameTickerID = setTimeout(gameTicker, 1000);
+  gameTickerID = setTimeout(gameTicker, gameSpeed);
 }
 
 function changePlaneDirection(newDirection) {
-  currentPosition.direction = newDirection;
+  currentPosition.Direction = newDirection;
   rotatePlane();
 }
 
@@ -187,6 +234,7 @@ function initializeGame() {
     initializeGameMatrix();
   }
 
+  hitCheckpoint(true);
   drawGameMatrix();
 }
 
@@ -230,7 +278,7 @@ function addEvents() {
     if (gameTickerID) {
       clearTimeout(gameTickerID);
     }
-    gameTickerID = setTimeout(gameTicker, 1000);
+    gameTickerID = setTimeout(gameTicker, gameSpeed);
   });
 
   // restart everything if window size changes
@@ -240,10 +288,10 @@ function addEvents() {
     if (gameTickerID) {
       clearTimeout(gameTickerID);
     }
-    gameTickerID = setTimeout(gameTicker, 1000);
+    gameTickerID = setTimeout(gameTicker, gameSpeed);
   });
 
-  gameTickerID = setTimeout(gameTicker, 1000);
+  gameTickerID = setTimeout(gameTicker, gameSpeed);
 }
 
 $(function() {
